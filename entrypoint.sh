@@ -4,4 +4,4 @@ python manage.py makemigrations --no-input
 python manage.py migrate --no-input
 python manage.py collectstatic --no-input
 
-gunicorn apiconsumer.wsgi:application --bind 0.0.0.0:9000
+gunicorn apiconsumer.wsgi:application --bind 0.0.0.0:8888

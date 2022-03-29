@@ -9,7 +9,7 @@ services:
     build:
       context: .
     ports:
-      - "9000:9000"
+      - "8888:8888"
 
 volumes:
   static:
