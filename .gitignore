@@ -2,3 +2,4 @@ venv/
 *.sqlite3
 __pycache__/
 .vscode/
+.env.compose
