@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API CONSUMER</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
     <h1>Consumer for Random Word API which is dockerized and hosted on remote VPS</h1>
     <br><br>
     <b>Random word of the day </b>
@@ -15,5 +10,6 @@
     Word : <b>{{api_result.word.title}}</b>
     <br>
     Meaning : {{api_result.meaning}}
-</body>
-</html>
+    <br>
+    <img src="{{ STATIC_URL }}images/layout.jpg" alt="layout of service" class="layout-image">
+{% endblock %}
