@@ -34,6 +34,17 @@ DEBUG=FALSE
 4. Activate the container with ```docker-compose up```
 5. The website should now be accessible through 'your IP' + :8888 as the port
 
+## Testing
+
+* Manual API tests
+    * Test random word is retrieved by requests.get
+    * Test exception handling if site is unreachable and give server error message
+
+* Deployment
+    * Test deployment on local development machine
+    * Test docker container on local development machine
+    * Test docker container on remote VPS
+
 ## Technologies
 
 * Docker
