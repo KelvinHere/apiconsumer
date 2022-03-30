@@ -2,6 +2,8 @@
 
 This website [LINK HERE](HTTP://46.101.60.151:8888) remotely consumes my [Random Word API](HTTP://46.101.13.65:8000).
 
+[GITHUB LINK TO API](https://github.com/KelvinHere/api-for-digitalocean)
+
 ## About
 
 Hosted on a VPS inside a Docker container, this project is an example of a website which consumes an API located in another Docker container.
@@ -18,7 +20,7 @@ Below is a layout diagram of how the websites communicate and where they are pla
 
 ## Deployment
 
-* Pre-requisites
+* Prerequisites
     * A machine with Docker installed
 
 1. Clone the repo
