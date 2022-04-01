@@ -53,3 +53,4 @@ DEBUG=FALSE
 * Django Requests
 * Gunicorn
 * Whitenoise
+* Bootstrap
