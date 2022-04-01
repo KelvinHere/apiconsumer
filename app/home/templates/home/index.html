@@ -2,14 +2,32 @@
 {% load static %}
 
 {% block content %}
-    <h1>Consumer for Random Word API which is dockerized and hosted on remote VPS</h1>
-    <br><br>
-    <b>Random word of the day </b>
-    <br>
-    <br>
-    Word : <b>{{api_result.word.title}}</b>
-    <br>
-    Meaning : {{api_result.meaning}}
-    <br>
-    <img src="{{ STATIC_URL }}images/layout.jpg" alt="layout of service" class="layout-image">
+
+    <div class="container-fluid mt-2 mb-5">
+        <p><b>This website consumes a Random Word API from the links below</b></p> 
+        <a href="http://46.101.13.65:8000/word">Random Word directly from API</a>
+        <br>
+        <a href="http://46.101.13.65:8000">Random Word API Home Page</a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="bg-secondary">
+            <p class="text-center mb-0"><b>Random word</b></p>
+        </div>
+        <div class="bg-white p-0 mt-2 mb-5">
+            <h2 class="text-center">{{api_result.word.title}}</h2>
+            <p>Meaning : {{api_result.meaning}}</p>
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="bg-secondary">
+            <p class="text-center mb-0"><b>Structure of API & Consumer</b></p>
+        </div>
+        <div class="mt-3">
+            <img src="{{ STATIC_URL }}images/layout.jpg" alt="layout of service" class="img-fluid mx-auto d-block">
+        </div>
+    </div>
+
 {% endblock %}

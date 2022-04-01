@@ -13,9 +13,6 @@ def home(request):
                         "meaning": "PLEASE TRY AGAIN LATER"
                      }
 
-    print(type(api_result))
-    print(api_result)
-
     template = "home/index.html"
     context = {
         'api_result': api_result
