@@ -27,6 +27,10 @@
                         <div class="bg-secondary">
                             <p class="text-center"><b>API Tools</b></p>
                         </div>
+                        <div class="bg-white p-0 mt-2 mb-5">
+                            <a onclick="ajaxRandomWord()" type="button" class="btn btn-primary">Request via AJAX</a>
+                            <p id="ajax-random-word"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,4 +45,22 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script>
+        function ajaxRandomWord() {
+            $.ajax({
+                type:"GET",
+                url:"/random_word/",
+                data:{ 
+                },
+                success: function(json_response){
+                    $('#ajax-random-word').empty();
+                    $('#ajax-random-word').text(JSON.stringify(json_response));
+                },
+            });
+        };
+    </script>
 {% endblock %}
