@@ -31,6 +31,14 @@
                             <a onclick="ajaxRandomWord()" type="button" class="btn btn-primary">Request via AJAX</a>
                             <p id="ajax-random-word"></p>
                         </div>
+                        <div class="bg-white p-0 mt-2 mb-5">
+                            <span>
+                                <a onclick="wordByPK()" type="button" class="btn btn-primary">Get Word by PK</a>
+                                <span>Select word PK --> </span>
+                                <input type="number" id="specific-word-pk" name="specific-word-pk" min="1">
+                            </span>
+                            <p id="ajax-specific-word-pk"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,6 +58,7 @@
 {% block postloadjs %}
 {{ block.super }}
     <script>
+        /* Request random word via ajax */
         function ajaxRandomWord() {
             $.ajax({
                 type:"GET",
@@ -62,5 +71,21 @@
                 },
             });
         };
+
+        /* Request specific word via ajax */
+        function wordByPK() {
+            let pk = $("#specific-word-pk").val();
+            $.ajax({
+                type:"GET",
+                url:"/word_by_pk/",
+                data:{
+                    'pk' : pk
+                },
+                success: function(json_response){
+                    $('#ajax-specific-word-pk').empty();
+                    $('#ajax-specific-word-pk').text(JSON.stringify(json_response));
+                },
+            })
+        }
     </script>
 {% endblock %}
