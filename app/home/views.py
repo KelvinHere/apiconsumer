@@ -1,11 +1,11 @@
-import code
 import json
 from django.shortcuts import render, HttpResponse
 import requests
+from django.conf import settings
 
 def home(request):
     try:
-        raise ValueError # Force value error exception
+        #raise ValueError # Force value error exception
         response = requests.get('http://46.101.13.65:8000/word')
         api_result = response.json()
     except ValueError:
@@ -35,7 +35,6 @@ def random_word(request):
                             "meaning": "PLEASE TRY AGAIN LATER"
                         })
         
-
         return HttpResponse(api_result, content_type='application/json')
 
           
@@ -44,8 +43,11 @@ def word_by_pk(request):
     if request.method == 'GET':
         pk = request.GET['pk']
         try:
-            json_response = requests.get(f'http://46.101.13.65:8000/word/{pk}')
+            headers = {'Authorization': f'Token {settings.USER1_TOKEN}'}
+            print(headers)
+            json_response = requests.get(f'http://46.101.13.65:8000/word/{pk}', headers=headers)
             api_result = json.dumps(json_response.json())
+            print(api_result)
             # If this key does not exist generate error message
             if api_result == '{"detail": "Not found."}':
                 api_result = '{"Error": "Word with this PK does not exist"}'
@@ -73,9 +75,9 @@ def update_word(request):
                 timeout=3
                 )
         except requests.exceptions.Timeout as e:
-            return HttpResponse(f'An error occured please try again later : \n\n{e}', content_type='application/json')
+            return HttpResponse(f'An error occurred please try again later : \n\n{e}', content_type='application/json')
         except requests.exceptions.RequestException as e:
-            return HttpResponse(f'An error occured please try again later : {e}', content_type='application/json')
+            return HttpResponse(f'An error occurred please try again later : {e}', content_type='application/json')
 
         # Add status code to JSON
         result = r.json()
