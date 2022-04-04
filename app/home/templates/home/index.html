@@ -44,11 +44,26 @@
                             </span>
                         </div>
                         <!-- Word Details -->
-                        <div class="retreived-word-information">
-                            <label for="word-text-area">Word:</label>
-                            <textarea name="word-text-area" rows="1" id="word-text-area"></textarea>
-                            <label for="word-meaning-text-area">Meaning:</label>
-                            <textarea name="word-meaning-text-area" rows="10" id="word-meaning-text-area"></textarea>
+                        <div class="row">
+                            <div class="col-10">
+                                <label for="word-text">Word:</label>
+                                <input type="text" class="w-100-percent" name="word-text" rows="1" id="word-text">
+                            </div>
+                            <div class="col-2">
+                                <label for="pk-text-area">PK:</label> <br>
+                                <input type="text" class="w-100-percent" name="pk-text" rows="1" id="pk-text">
+                            </div>
+                            <div class="col-12">
+                                <label for="word-meaning-text-area">Meaning:</label>
+                                <textarea name="word-meaning-text-area" class="w-100-percent" rows="10" id="word-meaning-text-area"></textarea>
+                            </div>
+                        </div>
+                        <!-- Edit / Delete Word -->
+                        <div>
+                            <span>
+                                <a onclick="ajaxUpdateWord()" type="button" class="btn btn-primary" disabled>Update this word</a>
+                                <a onclick="ajaxDeleteWord()" type="button" class="btn btn-primary" disabled>Delete this word</a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -78,8 +93,7 @@
                 data:{ 
                 },
                 success: function(json_response){
-                    $('#word-text-area').val(json_response.word);
-                    $('#word-meaning-text-area').val(json_response.meaning);
+                    updateWordDetails(json_response)
                 },
             });
         };
@@ -94,8 +108,7 @@
                     'pk' : pk
                 },
                 success: function(json_response){
-                    $('#word-text-area').val(json_response.word);
-                    $('#word-meaning-text-area').val(json_response.meaning);
+                    updateWordDetails(json_response)
                 },
             })
         }
@@ -110,10 +123,16 @@
                     'pk' : pk
                 },
                 success: function(json_response){
-                    $('#ajax-specific-word-pk').empty();
-                    $('#ajax-specific-word-pk').text(JSON.stringify(json_response));
+                    updateWordDetails(json_response)
                 },
             })
+        }
+
+        /* Update word and meaning text-areas */
+        function updateWordDetails(received_response){
+            $('#pk-text').val(received_response.id);
+            $('#word-text').val(received_response.word);
+            $('#word-meaning-text-area').val(received_response.meaning);
         }
     </script>
 {% endblock %}
