@@ -4,6 +4,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
+            <!--- Website INFO & links --->
             <div class="col-12 mt-2 mb-5">
                 <p><b>This website consumes a Random Word API from the links below</b></p> 
                 <a href="http://46.101.13.65:8000/word">Random Word directly from API</a>
@@ -12,39 +13,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 random-word">
                 <div class="row">
-                    <div class="col-12">
+                    <!--- Automatically Retrieved Random Word --->
+                    <div class="col-12 mb-4">
                         <div class="bg-secondary">
                             <p class="text-center mb-0"><b>Random word</b></p>
                         </div>
-                        <div class="bg-white p-0 mt-2 mb-5">
+                        <div class="bg-white p-0 mt-2">
                             <h2 class="text-center">{{api_result.word.title}}</h2>
                             <p>Meaning : {{api_result.meaning}}</p>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <!--- API Tools --->
+                    <div class="col-12 mb-4 api-tools">
                         <div class="bg-secondary">
                             <p class="text-center"><b>API Tools</b></p>
                         </div>
-                        <div class="bg-white p-0 mt-2 mb-5">
-                            <a onclick="ajaxRandomWord()" type="button" class="btn btn-primary">Request via AJAX</a>
+                        <!-- Random Word -->
+                        <div class="bg-white p-0 mt-2 mb-2">
+                            <a onclick="ajaxRandomWord()" type="button" class="btn btn-primary">Random word via AJAX</a>
                             <p id="ajax-random-word"></p>
                         </div>
-                        <div class="bg-white p-0 mt-2 mb-5">
+                        <!-- Random Word by PK -->
+                        <div class="bg-white p-0 mt-2 mb-3">
                             <span>
                                 <a onclick="wordByPK()" type="button" class="btn btn-primary">Get Word by PK</a>
                                 <span>Select word PK --> </span>
                                 <input type="number" id="specific-word-pk" name="specific-word-pk" min="1">
                             </span>
-                            <p id="ajax-specific-word-pk"></p>
+                        </div>
+                        <!-- Word Details -->
+                        <div class="retreived-word-information">
+                            <label for="word-text-area">Word:</label>
+                            <textarea name="word-text-area" rows="1" id="word-text-area"></textarea>
+                            <label for="word-meaning-text-area">Meaning:</label>
+                            <textarea name="word-meaning-text-area" rows="10" id="word-meaning-text-area"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">
+                <!--- Structure of service image --->
                 <div class="bg-secondary">
-                    <p class="text-center mb-0"><b>Structure of API & Consumer</b></p>
+                    <p class="text-center mb-0"><b>Structure of Service & Consumer</b></p>
                 </div>
                 <div class="mt-3">
                     <img src="{{ STATIC_URL }}images/layout.jpg" alt="layout of service" class="img-fluid mx-auto d-block">
@@ -66,17 +78,33 @@
                 data:{ 
                 },
                 success: function(json_response){
-                    $('#ajax-random-word').empty();
-                    $('#ajax-random-word').text(JSON.stringify(json_response));
+                    $('#word-text-area').val(json_response.word);
+                    $('#word-meaning-text-area').val(json_response.meaning);
                 },
             });
         };
 
         /* Request specific word via ajax */
         function wordByPK() {
-            let pk = $("#specific-word-pk").val();
+            var pk = $("#specific-word-pk").val();
             $.ajax({
                 type:"GET",
+                url:"/word_by_pk/",
+                data:{
+                    'pk' : pk
+                },
+                success: function(json_response){
+                    $('#word-text-area').val(json_response.word);
+                    $('#word-meaning-text-area').val(json_response.meaning);
+                },
+            })
+        }
+
+        /* Update word */
+        function updateWord(pk, word, meaning) {
+            var pk = $("#specific-word-pk").val();
+            $.ajax({
+                type:"POST",
                 url:"/word_by_pk/",
                 data:{
                     'pk' : pk
