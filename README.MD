@@ -10,7 +10,13 @@ Hosted on a VPS inside a Docker container, this project is an example of a websi
 
 ## Features
 
-Website  consumes a remote API
+* Website consumes a remote API
+* Tokens are used for PUT / Specific word retrieval & DELETE
+
+## Future Features
+
+* HTTPS so Tokens cannot be intercepted
+
 
 ## Layout
 

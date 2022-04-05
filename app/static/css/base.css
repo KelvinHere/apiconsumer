@@ -1,3 +1,7 @@
 .w-100-percent {
     width: 100%;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}
